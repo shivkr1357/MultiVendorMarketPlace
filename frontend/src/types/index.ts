@@ -38,6 +38,17 @@ export interface Product {
   rating: number;
   reviewCount: number;
   specifications: Record<string, any>;
+  // Amazon product fields
+  url?: string;
+  product_id?: string;
+  brand?: string;
+  features?: string[];
+  availability_status?: string;
+  prime_eligible?: boolean;
+  free_delivery?: boolean;
+  seller?: string;
+  scraped_at?: string;
+  image_alt?: string;
   createdAt: string;
   updatedAt: string;
 }

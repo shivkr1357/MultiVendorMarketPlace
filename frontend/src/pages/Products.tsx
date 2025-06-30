@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useGetProductsQuery } from "@/store/api";
 import { setSearchQuery, setSelectedCategory } from "@/store/slices/uiSlice";
-import { Search, Filter, Star, ShoppingBag } from "lucide-react";
+import { Search, Filter, Star, ShoppingBag, Shield, Truck } from "lucide-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const categories = [
@@ -219,19 +219,44 @@ export default function Products() {
                     <button className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
                       <ShoppingBag className="h-4 w-4 text-gray-600" />
                     </button>
+
+                    {/* Amazon badges */}
+                    <div className="absolute top-2 left-2 flex flex-col space-y-1">
+                      {product.prime_eligible && (
+                        <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                          <Shield className="h-3 w-3 mr-1" />
+                          Prime
+                        </span>
+                      )}
+                      {product.free_delivery && (
+                        <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">
+                          <Truck className="h-3 w-3 mr-1" />
+                          Free
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </Link>
                 <div className="space-y-2">
                   <Link to={`/products/${product._id}`}>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                    <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2">
                       {product.name}
                     </h3>
                   </Link>
+
+                  {/* Brand */}
+                  {product.brand && (
+                    <p className="text-sm text-gray-600 font-medium">
+                      {product.brand}
+                    </p>
+                  )}
+
                   <p className="text-sm text-gray-500">
                     {product.vendor?.firstName && product.vendor?.lastName
                       ? `${product.vendor.firstName} ${product.vendor.lastName}`
                       : product.vendor?.email || "Unknown Vendor"}
                   </p>
+
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-gray-900">
                       ${product.price}

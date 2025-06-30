@@ -12,6 +12,18 @@ export interface IProduct extends Document {
   tags: string[];
   rating: number;
   reviewCount: number;
+  // Amazon product fields
+  url?: string;
+  product_id?: string;
+  brand?: string;
+  features?: string[];
+  specifications?: Record<string, any>;
+  availability_status?: string;
+  prime_eligible?: boolean;
+  free_delivery?: boolean;
+  seller?: string;
+  scraped_at?: Date;
+  image_alt?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -29,6 +41,18 @@ const ProductSchema = new Schema<IProduct>(
     tags: { type: [String], default: [] },
     rating: { type: Number, default: 0, min: 0, max: 5 },
     reviewCount: { type: Number, default: 0 },
+    // Amazon product fields
+    url: { type: String },
+    product_id: { type: String },
+    brand: { type: String },
+    features: { type: [String], default: [] },
+    specifications: { type: Schema.Types.Mixed, default: {} },
+    availability_status: { type: String, default: "In stock" },
+    prime_eligible: { type: Boolean, default: false },
+    free_delivery: { type: Boolean, default: false },
+    seller: { type: String },
+    scraped_at: { type: Date },
+    image_alt: { type: String },
   },
   { timestamps: true }
 );
